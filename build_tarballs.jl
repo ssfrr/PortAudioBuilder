@@ -49,6 +49,7 @@ case "$target" in
         build_jack=true
     ;;
 esac
+build_jack=false
 if [[ "$build_alsa" == "true" ]]; then
     cd alsa-lib-1.1.6/
     ./configure --prefix=$prefix --host=$target
@@ -78,10 +79,13 @@ make install
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
-    Linux(:x86_64, libc=:glibc),
-    Linux(:powerpc64le, libc=:glibc),
-    MacOS(:x86_64),
-    Windows(:i686),
+    Linux(:i686, libc=:glibc)
+    Linux(:x86_64, libc=:glibc)
+    Linux(:aarch64, libc=:glibc)
+    Linux(:armv7l, libc=:glibc, call_abi=:eabihf)
+    Linux(:powerpc64le, libc=:glibc)
+    MacOS(:x86_64)
+    Windows(:i686)
     Windows(:x86_64)
 ]
 
